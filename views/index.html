@@ -1,0 +1,17 @@
+<!doctype html>
+<html>
+<head><meta charset="utf-8"><title>WA Panel</title><link rel="stylesheet" href="/style.css"></head>
+<body>
+  <h1>WA Bot Panel (Render-ready)</h1>
+  <nav><a href="/inbox">Inbox</a> | <a href="/messages">Broadcast Log</a></nav>
+  <section>
+    <h2>Send Image</h2>
+    <form id="imgForm" action="/api/send-image" method="post" enctype="multipart/form-data">
+      <input name="number" placeholder="628xxxx" required />
+      <input name="caption" placeholder="Caption" />
+      <input type="file" name="image" required />
+      <button>Send</button>
+    </form>
+  </section>
+</body>
+</html>

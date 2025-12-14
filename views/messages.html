@@ -1,0 +1,13 @@
+<!doctype html>
+<html><head><meta charset="utf-8"><title>Broadcast Log</title><link rel="stylesheet" href="/style.css"></head><body>
+<h1>Broadcast Log</h1>
+<table id="tbl"></table>
+<script>
+  async function load(){
+    const r = await fetch('/messages'); // this route is static in server for viewing file; we kept earlier behavior; if not present, implement API.
+    const html = await r.text();
+    document.getElementById('tbl').innerHTML = '<tr><td>Use /messages page from server</td></tr>';
+  }
+  load();
+</script>
+</body></html>

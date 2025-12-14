@@ -1,0 +1,37 @@
+<!doctype html>
+<html>
+<head><meta charset="utf-8"><title>Chat</title><link rel="stylesheet" href="/style.css"></head>
+<body>
+  <h1>Chat</h1>
+  <div id="box" style="height:60vh;overflow:auto;border:1px solid #ccc;padding:10px"></div>
+  <form onsubmit="send();return false;">
+    <input id="msg" placeholder="Ketik pesan..." style="width:60%" />
+    <button>Kirim</button>
+  </form>
+<script>
+  const num = location.pathname.split('/').pop();
+  async function load(){ 
+    const r = await fetch('/api/chat/' + num);
+    const data = await r.json();
+    const box = document.getElementById('box');
+    box.innerHTML = '';
+    data.forEach(d => {
+      const el = document.createElement('div');
+      el.style.margin = '6px';
+      el.style.textAlign = d.sender === 'me' ? 'right' : 'left';
+      el.textContent = d.time + ' - ' + d.message;
+      box.appendChild(el);
+    });
+    box.scrollTop = box.scrollHeight;
+  }
+  async function send(){
+    const text = document.getElementById('msg').value;
+    await fetch('/api/chat/' + num + '/send', {method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({message:text})});
+    document.getElementById('msg').value='';
+    load();
+  }
+  setInterval(load,1500);
+  load();
+</script>
+</body>
+</html>
